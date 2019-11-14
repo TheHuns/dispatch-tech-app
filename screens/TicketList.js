@@ -6,12 +6,12 @@ export default class TicketList extends Component {
     isLoading: true,
     tickets: []
   };
-  componentDidMount() {
-    return fetch("/tickets")
-      .then(res => res.json())
-      .then(data => this.setState({ tickets: data, isLoading: false }))
-      .catch(err => console.error(err));
-  }
+  // componentDidMount() {
+  //   return fetch("/tickets")
+  //     .then(res => res.json())
+  //     .then(data => this.setState({ tickets: data, isLoading: false }))
+  //     .catch(err => console.error(err));
+  // }
 
   render() {
     if (this.state.isLoading) {

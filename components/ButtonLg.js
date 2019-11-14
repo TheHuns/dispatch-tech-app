@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity, Text } from "react-native";
+import Colors from "../constants/colors";
 
 export default function ButtonLg({ title }) {
   return (
@@ -17,11 +18,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 35,
     alignItems: "center",
-    backgroundColor: "#f4f4f4"
+    backgroundColor: Colors.primary
   },
   text: {
     fontWeight: "600",
-    color: "#3c3c3c",
+    color: "white",
     fontSize: 18
   }
 });
