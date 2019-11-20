@@ -4,6 +4,8 @@ import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import TicketNavigation from "./navigation/TicketNavigation";
 
+// SQLite in expo for database retrieval
+
 const fetchFonts = () => {
   return Font.loadAsync({
     "roboto-imp": require("./assets/Roboto-Black.ttf")
