@@ -1,9 +1,22 @@
-import React from "react";
-import { Text, View, TouchableOpacity, StyleSheet, Image } from "react-native";
+import React, { useEffect } from "react";
+import { Text, View, StyleSheet, Image } from "react-native";
+import { useDispatch } from "react-redux";
+
 import ButtonLg from "../components/ButtonLg";
 import Colors from "../constants/colors";
+import { getTickets } from "../store/actions/tickets";
 
 export default function HomeScreen() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    try {
+      dispatch(getTickets());
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
