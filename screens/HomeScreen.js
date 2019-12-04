@@ -5,16 +5,36 @@ import { useDispatch } from "react-redux";
 import ButtonLg from "../components/ButtonLg";
 import Colors from "../constants/colors";
 import { getTickets } from "../store/actions/tickets";
+import { checkForUser } from "../store/actions/users";
+import Constants from "expo-constants";
+import t from "tcomb-form-native";
 
 export default function HomeScreen() {
   const dispatch = useDispatch();
+  const device_id = Constants.deviceId;
 
+  // Pull list of tickets from server
   useEffect(() => {
     try {
       dispatch(getTickets());
     } catch (error) {
       console.error(error);
     }
+  });
+
+  // Checks if device has registered a user
+  const _checkForUser = id => {
+    dispatch(checkForUser(id));
+  };
+
+  // Form setup
+  const Form = t.form.Form;
+
+  const User = t.struct({
+    email: t.String,
+    username: t.String,
+    password: t.String,
+    terms: t.Boolean
   });
 
   return (
@@ -34,8 +54,8 @@ export default function HomeScreen() {
         />
       </View>
       <View style={styles.actions}>
-        <ButtonLg title="Login" />
-        <ButtonLg title="Register" />
+        <Form type={User} />
+        <ButtonLg title="Register" onPress={_checkForUser(device_id)} />
       </View>
     </View>
   );
@@ -57,7 +77,7 @@ const styles = StyleSheet.create({
     resizeMode: "stretch"
   },
   imageContainer: {
-    height: "60%",
+    height: "25%",
     width: "100%",
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
@@ -65,7 +85,7 @@ const styles = StyleSheet.create({
   },
   actions: {
     justifyContent: "space-around",
-    height: "40%",
+    height: "75%",
     paddingVertical: 30
   },
   overlay: {
