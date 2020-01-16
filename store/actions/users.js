@@ -4,12 +4,11 @@ export const CHECK_FOR_USER = "CHECK_FOR_USER";
 export const ADD_USER = "ADD_USER";
 
 export const checkForUser = id => dispatch => {
-  console.log("action" + id);
   axios({
     method: "post",
     url: "http://192.168.0.243:5000/users/findone",
     data: {
-      deviceId: id
+      id
     }
   })
     .then(res => {
@@ -26,4 +25,20 @@ export const checkForUser = id => dispatch => {
       }
     })
     .catch(err => console.error(err));
+};
+
+export const addUser = user => dispatch => {
+  axios({
+    method: "post",
+    url: "http://192.168.0.243:5000/users/",
+    data: {
+      name: user.name,
+      password: user.password
+    }
+  }).then(res =>
+    dispatch({
+      type: ADD_USER,
+      payload: res.user
+    })
+  );
 };
