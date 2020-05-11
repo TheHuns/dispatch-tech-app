@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, StyleSheet, Text, Button } from "react-native";
+import { View, StyleSheet, Text, Button, FlatList } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { getTickets } from "../store/actions/tickets";
 
@@ -14,14 +14,12 @@ export default function TicketList() {
     dispatch(getTickets());
   }, []);
 
-  return (
-    <View style={{ flex: 1 }}>
-      {tickets.map(ticket => {
+  const Ticket = ({name, address, service}) => {
         return (
-          <View key={ticket._id} style={styles.ticketContainer}>
-            <Text style={styles.ticketName}>{ticket.name}</Text>
-            <Text style={styles.ticketAddress}>{ticket.autoAddress}</Text>
-            <Text style={styles.ticketService}>{ticket.serviceRequested}</Text>
+          <View style={styles.ticketContainer}>
+            <Text style={styles.ticketName}>{name}</Text>
+            <Text style={styles.ticketAddress}>{address}</Text>
+            <Text style={styles.ticketService}>{service}</Text>
             <View style={styles.action}>
               <Button title="Completed" style={styles.button}></Button>
               <Button
@@ -31,8 +29,14 @@ export default function TicketList() {
               ></Button>
             </View>
           </View>
-        );
-      })}
+        )
+
+  }
+
+  return (
+    <View style={{ flex: 1 }}>
+      <FlatList data={tickets} renderItem={({item}) => <Ticket name={item.name} address={item.autoAddress} service={item.servicerequested} />   } keyExtractor={ticket => ticket._id}></FlatList>
+      
     </View>
   );
 }
